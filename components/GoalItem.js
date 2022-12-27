@@ -1,26 +1,35 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 
 const styles = StyleSheet.create({
   listItem: {
-    padding: 10,
-    marginVertical: 10,
-    backgroundColor: '#ccc',
-    borderColor: 'black',
+    margin: 8,
+    backgroundColor: '#5e0acc',
     borderWidth: 1,
+    borderRadius: 6,
+  },
+  pressedItem: {
+    opacity: 0.5,
+  },
+  goalText: {
+    color: 'white',
+    padding: 8,
   },
 });
 
 const GoalItem = (props) => {
   return (
-    <TouchableOpacity
-      activeOpacity={0.4}
-      onPress={props.onDelete.bind(this, props.id)}
-    >
-      <View style={styles.listItem}>
-        <Text>{props.title}</Text>
-      </View>
-    </TouchableOpacity>
+    <View style={styles.listItem}>
+      <Pressable
+        activeOpacity={0.4}
+        android_ripple={{ color: '#210644' }}
+        onPress={props.onDelete.bind(this, props.id)}
+        // this is to show ripple effect on IOS
+        style={({ pressed }) => pressed && styles.pressedItem}
+      >
+        <Text style={styles.goalText}>{props.title}</Text>
+      </Pressable>
+    </View>
   );
 };
 

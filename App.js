@@ -6,7 +6,9 @@ import GoalInput from './components/GoalInput';
 
 const styles = StyleSheet.create({
   root: {
-    padding: 50,
+    flex: 1,
+    paddingTop: 50,
+    paddingHorizontal: 16,
   },
 });
 
@@ -32,28 +34,34 @@ const App = () => {
     setModalOpen(false);
   };
 
-  //using key && id instead don't need key generator prop
   return (
-    <View style={styles.root}>
-      <Button title="Add New Goal" onPress={() => setModalOpen(true)} />
-      <StatusBar style="auto" />
-      <GoalInput
-        visible={modalOpen}
-        onAddGoal={handleSubmit}
-        onCancel={cancelGoal}
-      />
-      <FlatList
-        keyExtractor={(item, index) => item.id}
-        data={courseGoals}
-        renderItem={(itemData) => (
-          <GoalItem
-            id={itemData.item.id}
-            onDelete={deleteGoal}
-            title={itemData.item.value}
-          />
-        )}
-      />
-    </View>
+    <>
+      <StatusBar style="light" />
+      <View style={styles.root}>
+        <Button
+          title="Add New Goal"
+          color="#a065ec"
+          onPress={() => setModalOpen(true)}
+        />
+        <GoalInput
+          visible={modalOpen}
+          onAddGoal={handleSubmit}
+          onCancel={cancelGoal}
+        />
+        <FlatList
+          keyExtractor={(item, index) => item.id}
+          data={courseGoals}
+          alwaysBounceVertical={false}
+          renderItem={(itemData) => (
+            <GoalItem
+              id={itemData.item.id}
+              onDelete={deleteGoal}
+              title={itemData.item.value}
+            />
+          )}
+        />
+      </View>
+    </>
   );
 };
 
